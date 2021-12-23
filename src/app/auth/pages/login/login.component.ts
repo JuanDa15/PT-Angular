@@ -114,13 +114,11 @@ export class LoginComponent{
     */
    logIn():void{
      if(this.loginForm.valid){
-       this.spinner.show();
        this.loginService.login(this.loginForm.value)
          .subscribe({
            next: (value:any) => {
              if(value === true){
                this.router.navigateByUrl('/products')
-               this.spinner.hide();
                Swal.fire({
                  icon:'success',
                  text:'session iniciada correctamente'
@@ -130,7 +128,6 @@ export class LoginComponent{
                  icon:'error',
                  text:'Error al iniciar sesion'
                })
-               this.spinner.hide();
              }
            }
          })

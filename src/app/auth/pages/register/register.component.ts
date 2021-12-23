@@ -2,18 +2,16 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Department } from 'src/app/Interfaces/department.interface';
 import { DepartmentsService } from 'src/app/services/departments.service';
 import { AgeService } from 'src/app/shared/Validators/age.service';
 import { PasswordService } from 'src/app/shared/Validators/password.service';
 import Swal from 'sweetalert2';
 import { SessionService } from '../../services/session.service';
 
-interface Department {
-  id:           number;
-  departamento: string;
-  ciudades:     string[];
-}
-
+/**
+ * [Contains all the messages used in the input errors]
+ */
 enum helpMessages{
   phone = "Ejemplo: </br> 312 484 5958 </br> 325 2518",
   email = "El correo solo puede contener:<br> letras /números / + / - / _ / * / .",
@@ -39,12 +37,12 @@ export class RegisterComponent implements OnInit{
     character :  helpMessages.character,
     password  :  helpMessages.password,
     age       :  helpMessages.age,
-    id        :   helpMessages.id
+    id        :  helpMessages.id
   }
 
 
   /**
-     * [visible] = var to change the
+     * [visible] = var to change the password input
      * icon and input type
      */
   visible:boolean = true;
@@ -114,33 +112,35 @@ export class RegisterComponent implements OnInit{
     * 
     * @param fb
     * @description = angular form builder 
-    * @param validations 
-    * @description = synchronous validations service
-    * @param emailValidator 
-    * @description = asynchronous email validator
+    * @param ageValidator 
+    * @description =  age validator
     * @param loginService
     * @description = validates the login information 
-    * @router
+    * @param router
     * @description = Angular router module
-    * @spinner 
-    * @description = loading spinner service
-    * @notifications
-    * @description = swall notifications manager
+    * @param passValidator 
+    * @description =  password validator
     */
   constructor(private fb:FormBuilder,
               private loginService: SessionService,
               private router:Router,
-              private spinner:NgxSpinnerService,
               private departments:DepartmentsService,
               private ageValidator:AgeService,
               private passValidator:PasswordService){}
+
   ngOnInit(): void {
     this.loadDepartments();
   }
 
-  // UX Functions: 
-  // manage the login form errors
-  loginErrors(field:string){
+  /**
+   * [loginErrors]
+   *  manage the text error from the
+   *  form fields
+   * @param   {string}  field  [field description]
+   *
+   * @return  {string}         [return description]
+   */
+  loginErrors(field:string):string{
     const errors = this.registerForm.get(field)?.errors;
 
     if(errors?.required){
@@ -159,8 +159,6 @@ export class RegisterComponent implements OnInit{
       let actualLength = errors?.maxlength?.actualLength;
 
       return `La longitud debe ser menor o igual a: ${maxlength} carácteres, longitud actual: ${actualLength}`
-    }else if(errors?.minlength){
-      return 'La longitud debe ser de 8 caracteres minimo'
     }else if(errors?.underAge){
       return 'La persona no es mayor de edad.';
     }else if(errors?.notEqual){
@@ -173,14 +171,14 @@ export class RegisterComponent implements OnInit{
   }
 
   /**
-     * [loadDepartments]
-     * load the information on the departments select
-     * 
-     * @return  {void}
-     */
+   * [loadDepartments]
+   * load the information on the departments select
+   * 
+   * @return  {void}
+   */
    loadDepartments():void{
     this.departments.getinfo().subscribe({
-      next: value => {
+      next: (value:Department[]) => {
         this.departamentos = value;
         if(this.registerForm.get('department')?.value.trim().length === 0){
           this.registerForm.get('city')?.disable();
@@ -189,28 +187,6 @@ export class RegisterComponent implements OnInit{
         }
       }
     })
-  }
-
-  /**
-  * Form Error Manager
-  */
-   errorMessage(field:string):string{
-    const errors = this.registerForm.get(field)?.errors;
-
-    if(errors?.required){
-      return 'Este campo es requerido';
-    }else if(errors?.pattern){
-      return 'El campo no cumple con el formato requerido.';
-    }else if(errors?.maxlength){
-      let maxlength = errors?.maxlength?.requiredLength;
-      let actualLength = errors?.maxlength?.actualLength;
-
-      return `La longitud debe ser menor o igual a: ${maxlength} carácteres, longitud actual: ${actualLength}`
-    }else if(errors?.email){
-      return 'El valor introducido no es un correo'
-    }else{
-      return '';
-    }
   }
 
 
@@ -224,7 +200,7 @@ export class RegisterComponent implements OnInit{
     if(this.registerForm.get('city')?.disabled){
       this.registerForm.get('city')?.enable();
     }
-    let index = this.departamentos?.findIndex( departamento => this.registerForm.controls?.department?.value === departamento.departamento);
+    let index = this.departamentos?.findIndex( (departamento:Department) => this.registerForm.controls?.department?.value === departamento.departamento);
     this.ciudades = this.departamentos[ index ].ciudades;
   }
 
@@ -234,7 +210,7 @@ export class RegisterComponent implements OnInit{
     * 
     * Check if a field is invalid or is touched
     * 
-    * @param campo: ref to formControlName field
+    * @param field: ref to formControlName field
     * @returns {boolean | undefined}
     */
   invalidField( field: string): boolean | undefined{
@@ -244,19 +220,17 @@ export class RegisterComponent implements OnInit{
 
 
   /**
-    * sends the login information to the backend
-    * and gets the token to validate the session
-    *
-    * @return  {void}
-    */
+  * sends the login information to the "backend"
+  * and gets the token to validate the session
+  *
+  * @return  {void}
+  */
    signUp():void{
     if(this.registerForm.valid){
-      this.spinner.show();
       this.loginService.register(this.registerForm.value)
         .subscribe({
           next: (value:any) => {
-              this.router.navigateByUrl('auth/ingresar')
-              this.spinner.hide();
+              this.router.navigateByUrl('auth/ingresar');
               Swal.fire({
                 icon:'success',
                 text:value.message
@@ -267,8 +241,6 @@ export class RegisterComponent implements OnInit{
                 icon:'error',
                 text:'Error al crear usuario'
               })
-              this.spinner.hide();
-              console.log(err);
             }
           })
       }

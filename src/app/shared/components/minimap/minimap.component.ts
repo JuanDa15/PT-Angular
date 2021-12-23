@@ -1,6 +1,21 @@
 import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
 
+/**
+ * MINIMAP COMPONENT
+ * 
+ * this component is used to show a small preview of a property location
+ * 
+ * HOW TO USE IT: 
+ * 
+ * this component has one input
+ * 
+ * center: [number,number] | [lnt=longitud,lat=latitud]
+ * 
+ * Receives the point when the property is located
+ * 
+ */
+
 @Component({
   selector: 'minimap',
   template: `
@@ -15,8 +30,11 @@ import * as mapboxgl from 'mapbox-gl';
     }
   `]
 })
-export class MinimapComponent  implements OnInit,AfterViewInit  {
+export class MinimapComponent  implements AfterViewInit  {
 
+  /**
+   * Div that shows the map
+   */
   @ViewChild('map') mapDiv!:ElementRef;
   map!:mapboxgl.Map;
   
@@ -25,6 +43,11 @@ export class MinimapComponent  implements OnInit,AfterViewInit  {
   constructor(){}
 
   ngAfterViewInit(): void {
+    /**
+     * [Initialize the map before the init to avoid some error]
+     *
+     * @return  {[type]}  [return description]
+     */
     this.map = new mapboxgl.Map({
       container: this.mapDiv.nativeElement,
       style: 'mapbox://styles/mapbox/streets-v11',
@@ -37,7 +60,5 @@ export class MinimapComponent  implements OnInit,AfterViewInit  {
     new mapboxgl.Marker({}).setLngLat(this.center).addTo(this.map);
   }
 
-  ngOnInit(): void {
-  }
 
 }

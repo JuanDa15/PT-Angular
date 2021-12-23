@@ -1,5 +1,12 @@
 import { Directive, ElementRef, Input, OnInit } from '@angular/core';
 
+/**
+ * TOOLTIP DIRECTIVE
+ * 
+ * DIRECTIVE USED TO DISPLAY A SMALL TOOLTIP IN THE INPUTS TO GUIDE THE
+ * USER
+ */
+
 @Directive({
   selector: '[InputHelper]'
 })

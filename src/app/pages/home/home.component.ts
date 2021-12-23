@@ -2,15 +2,28 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  template: `
+    <navbar (window:scroll)="displayButton( $event )"></navbar>
+    <inicio></inicio>
+    <conocenos></conocenos>
+    <servicios></servicios>
+    <footer-component></footer-component>
+    <floating-button [flag]="flag"></floating-button>
+
+  `,
+  styles: [``]
 })
 export class HomeComponent{
 
+  /**
+   * [Var used to communicate to the child component the current position of the screen]
+   * if true, the navigation btn is displayed
+   */
+  flag:Boolean;
   
-  flag:Boolean = false;
-  
-  constructor() { }
+  constructor(){
+    this.flag = false;
+  }
 
     /**
    * [displayButton]

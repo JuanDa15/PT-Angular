@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Department } from 'src/app/Interfaces/department.interface';
 import { Email } from 'src/app/Interfaces/email.interface';
 import { DepartmentsService } from 'src/app/services/departments.service';
 import { SendEmailService } from 'src/app/services/send-email.service';
@@ -10,18 +11,12 @@ interface listItem{
   data: string;
 }
 
-interface Department {
-  id:           number;
-  departamento: string;
-  ciudades:     string[];
-}
-
-
+/**
+ * [tooltips message]
+ */
 enum helpMessages{
   phone = "Ejemplo: </br> 312 484 5958 </br> 325 2518",
   email = "El correo solo puede contener:<br> letras /números / + / - / _ / * / .",
-  salary = "Ejemplos: </br> 3.000.000 </br> 3,000,000 <br> 3000000",
-  risk = "Ejemplo: </br> 3,295%",
   character = "Solo puede contener caracteres alfanúmericos"
 }
 
@@ -54,6 +49,22 @@ export class ServiciosComponent implements OnInit {
     }
   ]
 
+  messages = {
+    name      :  helpMessages.character,
+    phone     :  helpMessages.phone,
+    email     :  helpMessages.email,
+    character :  helpMessages.character
+  }
+
+  /**
+   * 
+   * @param fb 
+   * @description reactive form builder
+   * @param department  
+   * @description cities service 
+   * @param sendEmail 
+   * @description email service
+   */
   constructor(private fb:FormBuilder,
               private department:DepartmentsService,
               private sendEmail:SendEmailService) { }
@@ -62,13 +73,11 @@ export class ServiciosComponent implements OnInit {
     this.loadDepartments();
   }
 
-  messages = {
-    name      :  helpMessages.character,
-    phone     :  helpMessages.phone,
-    email     :  helpMessages.email,
-    character :  helpMessages.character
-  }
-
+  /**
+   * [contactForm]
+   * Form builder structure
+   *
+   */
   contactForm:FormGroup = this.fb.group({
     name:[
       '',
@@ -123,7 +132,7 @@ export class ServiciosComponent implements OnInit {
      */
     loadDepartments():void{
       this.department.getinfo().subscribe({
-        next: value => {
+        next: (value:Department[]) => {
           this.departamentos = value;
           if(this.contactForm.get('department')?.value.trim().length === 0){
             this.contactForm.get('city')?.disable();
@@ -144,13 +153,18 @@ export class ServiciosComponent implements OnInit {
       if(this.contactForm.get('city')?.disabled){
         this.contactForm.get('city')?.enable();
       }
-      let index = this.departamentos?.findIndex( departamento => this.contactForm.controls?.department?.value === departamento.departamento);
+      let index = this.departamentos?.findIndex( (departamento:Department) => this.contactForm.controls?.department?.value === departamento.departamento);
       this.ciudades = this.departamentos[ index ].ciudades;
     }
 
   /**
-  * Form Error Manager
-  */
+   * [errorMessage]
+   * Returns the inputs errors message
+   *
+   * @param   {string}  field  
+   *
+   * @return  {string}         
+   */
   errorMessage(field:string):string{
     const errors = this.contactForm.get(field)?.errors;
 
@@ -171,7 +185,7 @@ export class ServiciosComponent implements OnInit {
   }
 
   /**
-   * [invalidField, ContractsInvalidField]
+   * 
    * Function that decide if a field is valid or invalid,
    * used to show the errors messages
    *
@@ -184,7 +198,12 @@ export class ServiciosComponent implements OnInit {
             this.contactForm.get(field)?.touched;
   }
 
-  sendForm(){
+  /**
+   * [sendForm]
+   *
+   * @return  {void}  [return description]
+   */
+  sendForm(): void{
     if(this.contactForm.valid){
       const body:Email =  this.contactForm.value;
 

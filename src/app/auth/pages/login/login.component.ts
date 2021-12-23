@@ -13,10 +13,11 @@ import { SessionService } from '../../services/session.service';
 export class LoginComponent{
 
   /**
-   * [visible] = var to change the
+   * [visible] = variable used to change the
    * icon and input type
    */
    visible:boolean = true;
+
    /**
     * Get the password input to 
     * dynamically change the input
@@ -44,27 +45,28 @@ export class LoginComponent{
     * 
     * @param fb
     * @description = angular form builder 
-    * @param validations 
-    * @description = synchronous validations service
     * @param emailValidator 
     * @description = asynchronous email validator
     * @param loginService
     * @description = validates the login information 
     * @router
     * @description = Angular router module
-    * @spinner 
-    * @description = loading spinner service
-    * @notifications
-    * @description = swall notifications manager
     */
    constructor(private fb:FormBuilder,
                private loginService: SessionService,
-               private router:Router,
-               private spinner:NgxSpinnerService){}
+               private router:Router){}
  
-   // UX Functions: 
-   // manage the login form errors
-   loginErrors(field:string){
+ 
+   /**
+    * [loginErrors]
+    * Function used to manage the text error from the
+    * form fields
+    *
+    * @param   {string}  field  [Input that call the function]
+    *
+    * @return  {string}         [error message]
+    */
+   loginErrors(field:string):string{
      const errors = this.loginForm.get(field)?.errors;
  
      if(errors?.required){
@@ -77,7 +79,7 @@ export class LoginComponent{
        return '';
      }
    }
-   // --------------------------------------------
+
    /**
     * [hidePassword] = Function that toggles
     * the password button icon and changes the 
@@ -90,14 +92,11 @@ export class LoginComponent{
      this.passwordInput.nativeElement.type = this.visible? 'password' : 'text';
    }
  
-   // Functional functions:
- 
- 
    /**
     * 
     * Check if a field is invalid or is touched
     * 
-    * @param campo: ref to formControlName field
+    * @param field: ref to formControlName field
     * @returns {boolean | undefined}
     */
    invalidField( field: string): boolean | undefined{
@@ -116,9 +115,9 @@ export class LoginComponent{
      if(this.loginForm.valid){
        this.loginService.login(this.loginForm.value)
          .subscribe({
-           next: (value:any) => {
+           next: (value:boolean) => {
              if(value === true){
-               this.router.navigateByUrl('/products')
+               this.router.navigateByUrl('/products/list')
                Swal.fire({
                  icon:'success',
                  text:'session iniciada correctamente'

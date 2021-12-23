@@ -72,7 +72,7 @@
       <span
         *ngIf="invalidField('department')"
         FormError
-        [errorMsg]="errorMessage('department')"
+        [errorMsg]="loginErrors('department')"
       >
       </span>
     </div>
@@ -89,7 +89,7 @@
       <span
         *ngIf="invalidField('city')"
         FormError
-        [errorMsg]="errorMessage('city')">
+        [errorMsg]="loginErrors('city')">
       </span>
     </div>
   </div>
@@ -141,7 +141,7 @@
   </div>
   <span *ngIf="invalidField('genre')"
         FormError
-        [errorMsg]="errorMessage('genre')"></span>
+        [errorMsg]="loginErrors('genre')"></span>
 </div>
 
 
@@ -185,7 +185,7 @@
    </div>
    <span *ngIf="invalidField('dataTreatment')"
          FormError
-         [errorMsg]="errorMessage('dataTreatment')">
+         [errorMsg]="loginErrors('dataTreatment')">
    </span>
  </div>
 

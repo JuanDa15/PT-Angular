@@ -7,6 +7,10 @@ import { Property } from 'src/app/Interfaces/property.interface';
   styleUrls: ['./property-card.component.scss']
 })
 export class PropertyCardComponent{
+
+  /**
+   * Receives all the property information that is displayed on the card
+   */
   @Input() property!:Property;
   constructor() { }
 }

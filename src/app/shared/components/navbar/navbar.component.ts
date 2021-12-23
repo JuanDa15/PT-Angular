@@ -38,7 +38,13 @@ export class NavbarComponent {
     },500)
   }
 
-  redirection(){
+  /**
+   * [redirection ]
+   * If a token exist redirect to the products page, if not redirect to the login
+   *
+   * @return  {void}  [return description]
+   */
+  redirection():void{
     (sessionStorage.getItem('token'))?
         this.router.navigateByUrl('/products'):
         this.router.navigateByUrl('/auth/ingreso')

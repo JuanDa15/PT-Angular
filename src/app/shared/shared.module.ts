@@ -8,7 +8,6 @@ import { FloatingButtonComponent } from './components/floating-button/floating-b
 import { InputHelperDirective } from './directives/input-helper.directive';
 import { MinimapComponent } from './components/minimap/minimap.component';
 import { PropertyCardComponent } from './components/property-card/property-card.component';
-import { SearchbarComponent } from './components/searchbar/searchbar.component';
 
 
 
@@ -20,8 +19,7 @@ import { SearchbarComponent } from './components/searchbar/searchbar.component';
     FloatingButtonComponent,
     InputHelperDirective,
     MinimapComponent,
-    PropertyCardComponent,
-    SearchbarComponent
+    PropertyCardComponent
   ],
   imports: [
     CommonModule,
@@ -34,8 +32,7 @@ import { SearchbarComponent } from './components/searchbar/searchbar.component';
     FloatingButtonComponent,
     InputHelperDirective,
     MinimapComponent,
-    PropertyCardComponent,
-    SearchbarComponent
+    PropertyCardComponent
   ]
 })
 export class SharedModule { }

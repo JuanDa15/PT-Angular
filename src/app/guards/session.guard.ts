@@ -8,9 +8,9 @@ import Swal from 'sweetalert2';
 })
 export class SessionGuard implements CanActivate, CanLoad {
 
-  constructor(private router:Router){
+  constructor(private router:Router){}
 
-  }
+  
   canActivate(): Observable<boolean> | boolean {
     if(sessionStorage.getItem('token')){
       return true;

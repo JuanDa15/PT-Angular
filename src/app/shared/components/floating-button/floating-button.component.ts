@@ -1,8 +1,32 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+
+/**
+ * floating-button COMPONENT
+ * 
+ * this component is used to returns the user at the 
+ * beginning of the page when is scrollable
+ * 
+ *
+ * 
+ * HOW TO USE IT: 
+ * 
+ * this component has one input, and doesn't have  outputs
+ * 
+ * flag: 
+ * Boolean value that says if the user is out of the initial viewport
+ * 
+ */
 
 @Component({
   selector: 'floating-button',
-  templateUrl: './floating-button.component.html',
+  template: `
+  <button class="btn c-white"
+          *ngIf="flag"
+          (click)="scroll()"
+          routerLink="/inicio">
+        <i class="fas fa-chevron-up"></i>
+  </button>
+  `,
   styles: [`
     button{
       position:fixed;

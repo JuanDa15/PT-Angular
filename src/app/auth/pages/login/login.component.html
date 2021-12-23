@@ -1,0 +1,62 @@
+<div class="login__container">
+ <div class="login">
+   <h1 class="icon">
+     <i class="fas fa-user-friends"></i>
+   </h1>
+   
+   <form [formGroup]="loginForm" 
+         (ngSubmit)="logIn()"
+         autocomplete="off">
+
+  <div class="form__block">
+    <div class="input__container">
+     <input  class="form__input input_login-borders c-gray"
+            type="text"
+            placeholder="Correo Electronico*"
+            formControlName="email"/>
+    </div>
+
+    <span FormError
+          [errorMsg]="loginErrors('email')" 
+          *ngIf="invalidField('email')">
+    </span>
+  </div>
+
+
+  <div class="form__block">
+    <div class="input_password">
+      <input  class="input_login-borders"
+              type="password"
+              placeholder="Contraseña*"
+              formControlName="password"
+              #passwordInput/>
+
+      <button class="input_login-borders"
+              type="button"
+              (click)="hidePassword()">
+        <i  class="fas"
+            [ngClass]="{'fa-eye-slash': visible,'fa-eye': !visible}">
+        </i>
+      </button>
+    </div>
+    <span FormError
+          [errorMsg]="loginErrors('password')"
+          *ngIf="invalidField('password')">
+    </span>
+  </div>
+
+  <button type="submit"
+          class="form__button"
+          [disabled]="loginForm.invalid">
+    Ingresar
+  </button>
+</form>
+
+   <span class="forget c-white">
+     ¿No tienes cuenta aún?
+     <a routerLink="/auth/registro">
+       Click aquí
+     </a>
+   </span>
+ </div>
+</div>

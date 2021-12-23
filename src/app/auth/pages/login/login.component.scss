@@ -1,0 +1,150 @@
+@import '/src/styles.scss';
+
+*,*::after,*::before{
+  box-sizing: border-box;
+}
+
+
+.login__container{
+ background-color: $white;
+ display: grid;
+ min-height: 100vh;
+ place-items: center;
+ position: relative;
+ overflow-x: hidden;
+ overflow-y: hidden;
+
+
+ &::after, &::before{
+    content: '';
+    position: absolute;
+    left: 0;
+ }
+
+ &::after{
+   top: -150px;
+   width: 105%;
+   height: 300px;
+   background-color: $dark_blue;
+   transform: rotate(10deg);
+   border-bottom-left-radius: 100%;
+   border-bottom-right-radius: 40%;
+ }
+
+ &::before{
+  background-color: $very_dark_blue;
+  width: 150%;
+  height: 300px;
+  bottom: -100px;
+  left: -600px;
+  transform: rotate(7deg);
+  border-top-right-radius: 25%;
+ }
+}
+
+.login{
+ display: flex;
+ flex-flow: column nowrap;
+ padding: 2rem;
+ position: relative;
+ width: 375px;
+ border: none;
+ box-shadow: none;
+ transition: all .3s ease;
+
+ .icon{
+   font-weight: 400;
+   font-size: 6rem;
+   margin: 0;
+   margin-bottom: 2rem;
+   text-align: center;
+   text-transform: uppercase;
+   color: $dark_blue;
+   transition: all .5s ease;
+ }
+}
+
+
+.forget{
+ font-size: .8rem;
+ margin-top: 2rem;
+ text-align: center;
+
+ a{
+   color: #63CEC0;
+   font-size: .9rem;
+   font-weight: 600;
+   margin-left: .5rem;
+ }
+}
+
+// Login form
+
+input{
+  font-size: 1rem;
+  color: #666;
+}
+
+.input-login{
+  padding: .6rem 1.2rem;
+
+  &::placeholder{
+    color: rgba(255, 255, 255, 0.575);
+    font-size: 1rem;
+    font-weight: 300;
+  }
+}
+
+.button-login{
+  margin-top: 2rem;
+  transition: .3s ease;
+  width: 100%;
+
+  &:hover{
+    background-color: $blue_green;
+    color: $dark_blue;
+    font-weight: 700;
+  }
+}
+
+.input_login-borders{
+  border: 2px solid $dark_blue;
+}
+
+.input-block{
+  margin-bottom: 2rem;
+}
+
+
+@media screen and (min-width:500px){
+ .login{
+   background-color: $very_dark_blue;
+   border-radius: .5rem;
+   box-shadow: 0 0 4px rgb(8, 43, 100);
+ }
+
+ .icon i{
+   color: #fff;
+ }
+
+ .input_password{
+
+  button{
+    background-color: $blue-green;
+
+    &:hover{
+      background-color: $white;
+      color: $dark_blue;
+    }
+  }
+ }
+
+  .forget{
+    color: $white;
+  }
+
+  .form__button{
+    background-color: $blue-green;
+  }
+}
+

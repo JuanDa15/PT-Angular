@@ -1,0 +1,199 @@
+<div class="login__container">
+ <div class="login">
+   <h1 class="title-reg">
+     Registro
+   </h1>
+   
+   <form [formGroup]="registerForm" 
+         (ngSubmit)="signUp()"
+         autocomplete="off">
+
+    <div class="form__block">
+     <div class="input__container"
+          InputHelper
+          [message]="messages.character">
+      <input  class="form__input input_login-borders"
+             type="text"
+             placeholder="Nombre*"
+             formControlName="name"/>
+     </div>
+     <span FormError
+           [errorMsg]="loginErrors('name')" 
+           *ngIf="invalidField('name')">
+     </span>
+   </div>
+
+   <div class="form__block">
+    <div class="input__container"
+         InputHelper
+         [message]="messages.id">
+     <input  class="form__input input_login-borders"
+            type="text"
+            placeholder="id*"
+            formControlName="id"/>
+    </div>
+    <span FormError
+          [errorMsg]="loginErrors('id')" 
+          *ngIf="invalidField('id')">
+    </span>
+  </div>
+
+   <div class="form__block">
+     <div class="input__container"
+          InputHelper
+          [message]="messages.email">
+      <input  class="form__input input_login-borders"
+             type="text"
+             placeholder="Correo Electronico*"
+             formControlName="email"/>
+     </div>
+     <span FormError
+           [errorMsg]="loginErrors('email')" 
+           *ngIf="invalidField('email')">
+     </span>
+   </div>
+
+   <div class="input__container">
+    <div class="field__container">
+      <label for="departamento"> Departamento: </label>
+      <select
+        id="departamento"
+        class="form__input input_login-borders"
+        formControlName="department"
+        (change)="loadCities()"
+      >
+        <option
+          [value]="departamento.departamento"
+          *ngFor="let departamento of departamentos"
+        >
+          {{ departamento.departamento }}
+        </option>
+      </select>
+      <span
+        *ngIf="invalidField('department')"
+        FormError
+        [errorMsg]="errorMessage('department')"
+      >
+      </span>
+    </div>
+
+    <div class="field__container">
+      <label for="ciudad"> Ciudad: </label>
+      <select id="ciudad" 
+              class="form__input input_login-borders" 
+              formControlName="city">
+        <option [value]="ciudad" *ngFor="let ciudad of ciudades">
+          {{ ciudad }}
+        </option>
+      </select>
+      <span
+        *ngIf="invalidField('city')"
+        FormError
+        [errorMsg]="errorMessage('city')">
+      </span>
+    </div>
+  </div>
+
+  <div class="form__block">
+   <div class="input__container"
+        InputHelper
+        [message]="messages.age">
+    <input  class="form__input input_login-borders"
+           type="date"
+           placeholder="Fecha nacimiento*"
+           formControlName="bornDate"/>
+   </div>
+   <span FormError
+         [errorMsg]="loginErrors('bornDate')" 
+         *ngIf="invalidField('bornDate')">
+   </span>
+ </div>
+
+ <h3 class="subtitle">
+  Sexo
+</h3>
+
+<div class="input_group-error">
+    <!-- GENRE -->
+  <div class="radio__group">
+
+    <div class="radio-label">
+      <label  for="masculino"
+              class="input-label">
+              Masculino
+      </label>
+      <input  type="radio" 
+              id="masculino"
+              value="M"
+              formControlName="genre">
+    </div>
+
+    <div class="radio-label">
+      <label  for="femenino"
+              class="input-label">
+        Femenino
+    </label>
+    <input  type="radio"
+            id="femenino"
+            value="F"
+            formControlName="genre">
+    </div>
+  </div>
+  <span *ngIf="invalidField('genre')"
+        FormError
+        [errorMsg]="errorMessage('genre')"></span>
+</div>
+
+
+  <div class="form__block">
+    <div class="input__container"
+         InputHelper
+         [message]="messages.password">
+      <input  class="form__input input_login-borders"
+              type="text"
+              placeholder="Contraseña*"
+              formControlName="password"/>
+    </div>
+    <span FormError
+          [errorMsg]="loginErrors('password')"
+          *ngIf="invalidField('password')">
+    </span>
+  </div>
+
+  <div class="form__block">
+   <div class="input__container"
+        InputHelper
+        [message]="messages.password">
+     <input  class="form__input input_login-borders"
+             type="text"
+             placeholder="Contraseña*"
+             formControlName="password2"/>
+   </div>
+   <span FormError
+         [errorMsg]="loginErrors('password2')"
+         *ngIf="invalidField('password2')">
+   </span>
+ </div>
+
+  <div class="input_group-error">
+   <div class="checkBox-label">
+     <label class="input-label c-d-blue">
+       Autorizacion tratamiento de datos:
+     </label>
+     <input  type="checkbox"
+             formControlName="dataTreatment">
+   </div>
+   <span *ngIf="invalidField('dataTreatment')"
+         FormError
+         [errorMsg]="errorMessage('dataTreatment')">
+   </span>
+ </div>
+
+    <button type="submit"
+            class="form__button"
+            [disabled]="registerForm.invalid">
+      Ingresar
+    </button>
+  </form>
+ </div>
+</div>

@@ -1,0 +1,168 @@
+<div id="contactanos">
+  <div class="content-container">
+    <h2 class="title">Contáctanos</h2>
+    <div class="content">
+      <div class="information">
+        <div *ngFor="let item of listInfo">
+          <i class="fas fa-{{ item.icon }}"></i>
+          {{ item.data }}
+        </div>
+      </div>
+      <div class="form-container">
+        <form
+          class="form"
+          autocomplete="off"
+          [formGroup]="contactForm"
+          (ngSubmit)="sendForm()"
+        >
+
+          <h3 class="form__title">Formulario de contacto</h3>
+
+          <div class="form__block">
+            <div  class="input__container" 
+                  InputHelper 
+                  [message]="messages.name">
+              <input
+                class="form__input"
+                type="text"
+                placeholder="Nombre*"
+                formControlName="name"
+              />
+            </div>
+
+            <span
+              *ngIf="invalidField('name')"
+              FormError
+              [errorMsg]="errorMessage('name')"
+            >
+            </span>
+          </div>
+
+          <div class="form__block">
+            <div  class="input__container"
+                  InputHelper
+                  [message]="messages.email">
+                  <input
+                        class="form__input"
+                        type="email"
+                        placeholder="Correo Electronico*"
+                        formControlName="email"
+            />
+            </div>
+            <span
+              *ngIf="invalidField('email')"
+              FormError
+              [errorMsg]="errorMessage('email')"
+            >
+            </span>
+          </div>
+
+          <div class="form__block">
+                <div    class="input__container"
+                        InputHelper
+                        [message]="messages.phone">
+                        <input
+                              class="form__input"
+                              type="phone"
+                              placeholder="Telefono*"
+                              formControlName="phone"
+                        />
+                </div>
+            <span
+              *ngIf="invalidField('phone')"
+              FormError
+              [errorMsg]="errorMessage('phone')"
+            >
+            </span>
+          </div>
+
+          <div class="input__container">
+            <div class="field__container">
+              <label for="departamento"> Departamento: </label>
+              <select
+                id="departamento"
+                class="form__input"
+                formControlName="department"
+                (change)="loadCities()"
+              >
+                <option
+                  [value]="departamento.departamento"
+                  *ngFor="let departamento of departamentos"
+                >
+                  {{ departamento.departamento }}
+                </option>
+              </select>
+              <span
+                *ngIf="invalidField('department')"
+                FormError
+                [errorMsg]="errorMessage('department')"
+              >
+              </span>
+            </div>
+
+            <div class="field__container">
+              <label for="ciudad"> Ciudad: </label>
+              <select id="ciudad" class="form__input" formControlName="city">
+                <option [value]="ciudad" *ngFor="let ciudad of ciudades">
+                  {{ ciudad }}
+                </option>
+              </select>
+              <span
+                *ngIf="invalidField('city')"
+                FormError
+                [errorMsg]="errorMessage('city')"
+              >
+              </span>
+            </div>
+          </div>
+
+          <div class="form__block">
+                <div    class="input__container"
+                        InputHelper
+                        [message]="messages.character">
+                  <input
+                        class="form__input"
+                        type="text"
+                        placeholder="Asunto*"
+                        formControlName="subject"
+                        required
+                        />
+                </div>
+            <span
+              *ngIf="invalidField('subject')"
+              FormError
+              [errorMsg]="errorMessage('subject')"
+            >
+            </span>
+          </div>
+
+          <div class="form__block">
+                <div    class="input__container"
+                        InputHelper
+                        [message]="messages.character">
+                  <textarea
+                        class="form__input t_a"
+                        placeholder="Mensaje*"
+                        required
+                        formControlName="message"
+                      >
+                      </textarea>
+                </div>
+            <span
+              *ngIf="invalidField('message')"
+              FormError
+              [errorMsg]="errorMessage('message')"
+            >
+            </span>
+          </div>
+
+          <div class="button__container">
+            <button class="form__button" [disabled]="contactForm.invalid">
+              Enviar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

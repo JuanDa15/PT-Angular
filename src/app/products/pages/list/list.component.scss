@@ -1,0 +1,46 @@
+@import '/src/styles.scss';
+
+.header{
+ display: flex;
+ flex-flow: row nowrap;
+ justify-content: space-between;
+ width: 95%;
+ margin: 1rem auto 2rem;
+
+ i{
+  font-size: 3rem;
+  color: $dark_blue;
+
+  &:hover{
+   color: $light_blue;
+  }
+ }
+}
+
+.page__title{
+ font-size: 2.5rem;
+ color: $dark_blue;
+ margin-bottom: 2rem;
+ position: relative;
+
+ &::before{
+  content: '';
+  position: absolute;
+  width: 100%;
+  bottom: -5px;
+  left: 0;
+  border-bottom: 2px solid $dark_blue;
+ }
+}
+
+.properties__container{
+ width: 95%;
+ margin: 0 auto;
+ display: flex;
+ flex-flow: row wrap;
+ gap: 1.5rem;
+
+ property-card{
+  flex: 1 1 23%;
+ }
+}

@@ -1,0 +1,133 @@
+@import '/src/styles.scss';
+
+*{
+  box-sizing: border-box;
+}
+
+.nav{
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 77px;
+  background-color: rgba(255, 255, 255, 0);
+  z-index: 10;
+}
+
+.content-container{
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+
+.nav-links{
+  background-color: $dark_blue;
+  color: $white;
+  height: 100vh;
+  padding-top: 80px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: -1;
+  width: 0;
+  transition: width .5s ease;
+  overflow: hidden;
+
+  li{
+    width: 100%;
+    text-align: right;
+    cursor: pointer;
+    padding: .5rem 1rem;
+    font-size: 1.3rem;
+    text-transform: capitalize;
+    transition: background-color .2s ease-in,
+                font-weight .2s ease-in,
+                font-size .2s ease-in;
+
+    &:nth-child(5){ 
+      font-size: 2.3rem;
+    }
+
+    &:hover{
+      background-color: #0d203c;
+    }
+  }
+}
+
+.btn{
+  font-size: 2rem;
+  margin-right: 1rem;
+  background-color: initial;
+  color: $dark_blue;
+  border: none;
+  cursor: pointer;
+  transition: transform .5s ease;
+}
+
+.nav-logo{
+  display: flex;
+  place-items: center left;
+  font-size: 1.3rem;
+  color: $white;
+  font-weight: 600;
+  cursor: pointer;
+  margin-left: 1.5rem;
+  position: relative;
+  z-index: 2;
+  
+  span{
+    color: $white;
+    font-weight: 800;
+    background-color: $dark_blue;
+    border-radius: 5rem;
+    padding: .5rem;
+  }
+}
+
+
+
+@media screen and (min-width:800px) {
+
+  .btn{
+    display: none;
+  }
+  
+  .nav-links{
+    background-color: inherit;
+    color: $white;
+    position: relative;
+    display: flex;
+    flex-flow: row nowrap !important;
+    inset: unset;
+    height: unset;
+    padding: unset;
+    align-items: center;
+    width: auto;
+    z-index: unset;
+
+    li{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+
+      &:hover{
+        border-radius: .3rem;
+        background-color: $dark_blue;
+        color: $white;
+      }
+    }
+  }
+}
+
+.btn-transition{
+  transform: rotate(90deg);
+}
+
+.nav-active{
+  display: flex;
+  flex-flow: column nowrap;
+  width: 400px;
+}
+.btn-colors{
+  color: $white;
+}

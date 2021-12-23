@@ -1,0 +1,25 @@
+<div class="property-card">
+ <minimap [center]="[property.lngLat[0],property.lngLat[1]]">
+ </minimap>
+ <div class="card__content">
+  <div class="price">
+   <span>${{property.price}}</span>
+  </div>
+  <div class="tags">
+   <span class="propertyType">
+    {{property.propertyType}}
+   </span>
+   <span class="serviceType">
+    {{property.serviceType}}
+   </span>
+  </div>
+  <h2 class="card__title">{{property.name}}</h2>
+  <p class="card__location">{{property.location}}</p>
+  <div class="characteristics">
+   <span>Alcobas: {{property.bedrooms}}</span>
+   <span>Garaje: {{property.garaje}}</span>
+   <span>Baño: {{property.bathroom}}</span>
+   <span>Área m<sup>2</sup>: {{property.area}}</span>
+  </div>
+ </div>
+</div>

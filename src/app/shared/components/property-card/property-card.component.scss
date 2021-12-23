@@ -1,0 +1,89 @@
+@import '/src/styles.scss';
+
+.property-card{
+ flex: 1 1 23% !important;
+ background-color: $white;
+ height: 440px;
+ border-radius: .5rem;
+ overflow:hidden;
+ box-shadow: 0 0 6px #000;
+ transition: all .5s ease;
+}
+
+.card__content{
+ padding: .4rem .8rem;
+ position: relative;
+ height: 100%;
+}
+
+.tags{
+ display: flex;
+ flex-flow: row nowrap;
+ gap: .5rem;
+ padding: .4rem .8rem
+}
+
+.propertyType, .serviceType{
+ padding: .4rem .8rem;
+ border-radius: 5rem;
+ color: $white;
+ font-weight: 600;
+ box-shadow: 0 0 2px #000;
+}
+
+.propertyType{
+ background-color: $dark_blue;
+}
+
+.serviceType{
+ background-color: $light_blue;
+}
+
+.card__title{
+ color: $dark_blue;
+ margin-bottom: .5rem;
+}
+
+.card__location{
+ color: $dark_blue;
+ font-weight: 600;
+ margin-bottom: 1rem;
+}
+
+.characteristics{
+ display: flex;
+ flex-flow: row wrap;
+ gap: .5rem;
+
+ span{
+  display: block;
+  flex: 1 1 40%;
+  font-weight: 700;
+  color: $dark_blue;
+ }
+}
+
+.price{
+ position: absolute;
+ background-color: $dark_blue;
+ width: 100%;
+ height: 300px;
+ left: 0;
+ bottom:-100%;
+ color: $white;
+ transition: all .3s ease;
+ text-align: right;
+ padding: 1rem .5rem;
+ z-index: 2;
+
+ span{
+  font-size: 1.5rem;
+ }
+}
+
+.property-card{
+
+ &:hover .price{
+  bottom: 0;
+ }
+}

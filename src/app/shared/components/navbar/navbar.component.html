@@ -1,0 +1,20 @@
+<nav class="nav">
+  <div class="content-container">
+    <div  class="nav-logo" 
+          routerLink="/home">
+          <span>INMO</span>BILIARIA
+    </div>
+    <div class="spacer"></div>
+    <ul class="nav-links">
+      <li *ngFor="let item of navCong"
+          routerLink="/home" [fragment]="item">{{item}}</li>
+      <li (click)="redirection()">
+        <i class="fas fa-user-circle"></i>
+      </li>
+    </ul>
+
+    <button class="btn" (click)="toggle()">
+      <i class="fas fa-bars"></i>
+    </button>
+  </div>
+</nav>
